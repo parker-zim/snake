@@ -18,12 +18,14 @@ void Setup(){
 }
 void Draw(){
   system("cls");
-  for (int i = 0; i <= width; i++){
-    cout << "#";
-  }
-  cout << endl;
 
-  for (int i = 0; i < height; i++){
+  for (int i = 0; i <= height; i++){
+    if (i == 0 || i = height){
+      for (int j = 0; j <= width; j++){
+        cout << "#";
+      }
+      cout << endl;
+    }
     for (int j = 0; j < width; j++){
       if (j == 0){
         cout << "#";
@@ -46,8 +48,10 @@ void Draw(){
       }
       cout << endl;
     }
+    cout << endl
+    cout << "Score: " << score
   }
-}
+
 
 void Input() {
   if (_kbhit()){
@@ -67,12 +71,39 @@ void Input() {
       case 'q':
         gameOver = true;
         break;
+      default:
+        break;
 
     }
   }
 }
 
 void Logic(){
+  switch(dir){
+    case Left:
+      x--;
+      break;
+    case RIGHT:
+      x++;
+      break;
+    case UP:
+      y--;
+      break;
+    case DOWN:
+      y++;
+      break;
+    default:
+      break;
+  }
+
+  if ( x >= width || x <= 0 || y >= height || y <= 0){
+    gameOver = true;
+  }
+  if (x == fruitX && y ==fruitY){
+    score++
+    fruitX = rand() % width;
+    fruitY = rand() % height;
+  }
 }
 
 int main() {
