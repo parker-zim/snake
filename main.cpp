@@ -10,7 +10,7 @@ eDirection dir;
 
 void Setup(){
   gameOver = false;
-  dir = STOP
+  dir = STOP;
   x = width/2;
   y = height/2;
   fruitX = rand() % width;
@@ -20,7 +20,7 @@ void Draw(){
   system("cls");
 
   for (int i = 0; i <= height; i++){
-    if (i == 0 || i = height){
+    if (i == 0 || i == height){
       for (int j = 0; j <= width; j++){
         cout << "#";
       }
@@ -31,25 +31,25 @@ void Draw(){
         cout << "#";
       }
       if (j == width - 1){
-        cout << "#"
+        cout << "#";
       }
       if (i == y && j == x) {
         // head of snake
-        cout << "O"
+        cout << "O";
       }
       else if (i == fruitY && j == fruitX){
         //fruit
-        cout << "a"
+        cout << "a";
       }
 
       else{
-        cout << " "
+        cout << " ";
       }
       }
       cout << endl;
     }
-    cout << endl
-    cout << "Score: " << score
+    cout << endl;
+    cout << "Score: " << score;
   }
 
 
@@ -57,16 +57,16 @@ void Input() {
   if (_kbhit()){
     switch (_getch()){
       case 'a':
-        dir = LEFT
-        break;
-      case 'a':
         dir = LEFT;
         break;
-      case 'a':
-        dir = LEFT;
+      case 'd':
+        dir = RIGHT;
         break;
-      case 'a':
-        dir = LEFT;
+      case 'w':
+        dir = UP;
+        break;
+      case 's':
+        dir = DOWN;
         break;
       case 'q':
         gameOver = true;
@@ -80,7 +80,7 @@ void Input() {
 
 void Logic(){
   switch(dir){
-    case Left:
+    case LEFT:
       x--;
       break;
     case RIGHT:
@@ -99,15 +99,15 @@ void Logic(){
   if ( x >= width || x <= 0 || y >= height || y <= 0){
     gameOver = true;
   }
-  if (x == fruitX && y ==fruitY){
-    score++
+  if (x == fruitX && y == fruitY){
+    score++;
     fruitX = rand() % width;
     fruitY = rand() % height;
   }
 }
 
 int main() {
-  Setup()
+  Setup();
   while(!gameOver){
     Draw();
     Input();
