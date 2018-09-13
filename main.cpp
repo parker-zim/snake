@@ -30,6 +30,13 @@ void Draw(){
       if (j == width - 1){
         cout << "#"
       }
+      if (i == y && j == x) {
+        cout << "O"
+      }
+      else if (i == fruitY && j == fruitX){
+        cout << "a"
+      }
+
       else{
         cout << " "
       }
