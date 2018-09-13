@@ -19,9 +19,9 @@ void Setup(){
 void Draw(){
   system("cls");
 
-  for (int i = 0; i <= height; i++){
+  for (int i = 0; i < height; i++){
     if (i == 0 || i == height){
-      for (int j = 0; j <= width; j++){
+      for (int j = 0; j <= width + 1; j++){
         cout << "#";
       }
       cout << endl;
