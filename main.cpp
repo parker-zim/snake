@@ -1,5 +1,7 @@
 #include <iostream>
 #include <conio.h>
+#include <windows.h>
+
 using namespace std;
 bool gameOver;
 const int width = 20;
@@ -19,35 +21,36 @@ void Setup(){
 void Draw(){
   system("cls");
 
-  for (int i = 0; i < height; i++){
-    if (i == 0 || i == height){
+  for (int i = 0; i <= height + 1; i++){
+    if (i == 0 || i == height + 1){
       for (int j = 0; j <= width + 1; j++){
-        cout << "#";
+        cout << "# ";
       }
       cout << endl;
     }
-    for (int j = 0; j < width; j++){
+    else {
+    for (int j = 0; j <= width; j++){
       if (j == 0){
-        cout << "#";
+        cout << "##";
       }
-      if (j == width - 1){
+      if (j == width){
         cout << "#";
       }
       if (i == y && j == x) {
         // head of snake
-        cout << "O";
+        cout << "()";
       }
       else if (i == fruitY && j == fruitX){
         //fruit
-        cout << "a";
+        cout << "aa";
       }
-
       else{
-        cout << " ";
+        cout << "  ";
       }
       }
       cout << endl;
     }
+  }
     cout << endl;
     cout << "Score: " << score;
   }
@@ -82,9 +85,11 @@ void Logic(){
   switch(dir){
     case LEFT:
       x--;
+      //x--;
       break;
     case RIGHT:
       x++;
+      //x++;
       break;
     case UP:
       y--;
@@ -96,7 +101,7 @@ void Logic(){
       break;
   }
 
-  if ( x >= width || x <= 0 || y >= height || y <= 0){
+  if ( x >= width || x < 0 || y > height || y <= 0){
     gameOver = true;
   }
   if (x == fruitX && y == fruitY){
@@ -112,7 +117,7 @@ int main() {
     Draw();
     Input();
     Logic();
-    //Sleep(10);
+    Sleep(10);
   }
   return 0;
 }
