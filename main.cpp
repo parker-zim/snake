@@ -1,6 +1,8 @@
 #include <iostream>
+#include <cstdlib>
 #include <conio.h>
 #include <windows.h>
+#include <ctime>
 
 using namespace std;
 bool gameOver;
@@ -22,21 +24,29 @@ void Draw(){
   system("cls");
 
   for (int i = 0; i <= height + 1; i++){
-    if (i == 0 || i == height + 1){
-      for (int j = 0; j <= width + 1; j++){
-        cout << "# ";
+    // if (i == 0 || i == height + 1){
+    //   for (int j = 0; j <= width + 1; j++){
+    //
+    //   }
+    //   cout << endl;
+    // }
+    // else {
+    for (int j = 0; j <= width + 1; j++){
+      if (i == 0 || i == height + 1){
+        if (j == 0) {
+          cout << "##";
+        }
+        else {
+          cout << "# ";
+        }
       }
-      cout << endl;
-    }
-    else {
-    for (int j = 0; j <= width; j++){
-      if (j == 0){
+      else if (j == 0){
         cout << "##";
       }
-      if (j == width){
+      else if (j == width + 1){
         cout << "#";
       }
-      if (i == y && j == x) {
+      else if (i == y && j == x) {
         // head of snake
         cout << "()";
       }
@@ -50,7 +60,7 @@ void Draw(){
       }
       cout << endl;
     }
-  }
+  // }
     cout << endl;
     cout << "Score: " << score;
   }
@@ -82,6 +92,14 @@ void Input() {
 }
 
 void Logic(){
+  if ( x >= width || x < 0 || y > height || y <= 0){
+    gameOver = true;
+  }
+  if (x == fruitX && y == fruitY){
+    score++;
+    fruitX = rand() % width;
+    fruitY = rand() % height;
+  }
   switch(dir){
     case LEFT:
       x--;
@@ -100,18 +118,10 @@ void Logic(){
     default:
       break;
   }
-
-  if ( x >= width || x < 0 || y > height || y <= 0){
-    gameOver = true;
-  }
-  if (x == fruitX && y == fruitY){
-    score++;
-    fruitX = rand() % width;
-    fruitY = rand() % height;
-  }
 }
 
 int main() {
+  srand(time(0));
   Setup();
   while(!gameOver){
     Draw();
@@ -119,5 +129,6 @@ int main() {
     Logic();
     Sleep(10);
   }
+
   return 0;
 }
