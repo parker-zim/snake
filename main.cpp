@@ -8,7 +8,8 @@ using namespace std;
 bool gameOver;
 const int width = 20;
 const int height = 20;
-int x, y, fruitX, fruitY, score;
+int x, y, fruitX, fruitY, score, nTail;
+int tailX[100], tailY[100]
 enum eDirection { STOP = 0, LEFT, RIGHT, UP, DOWN};
 eDirection dir;
 
@@ -55,12 +56,20 @@ void Draw(){
         cout << "aa";
       }
       else{
-        cout << "  ";
+        bool poTail = false;
+        for (k = 0; k < nTail; k++){
+          if (tailX[k] == j && tailY[k] == i){
+            cout << "::";
+            poTail = True
+          }
+        }
+        if (!poTail){
+          cout << "  ";
       }
       }
       cout << endl;
     }
-  // }
+  }
     cout << endl;
     cout << "Score: " << score;
   }
@@ -92,11 +101,25 @@ void Input() {
 }
 
 void Logic(){
+  int prevX = tailX[0];
+  int prevY = tailY[0];
+  tailX[0] = x;
+  tailY[0] = Y;
+  int prev2X, prev2Y
+  for (int i = 1; i < nTail; i++) {
+    prev2X = tailX[i];
+    prev2Y = tailY[i];
+    tailX[i] = prevX;
+    tailY[i] = prevY;
+    prevX = prev2X
+    prevY = prev2Y
+  }
   if ( x >= width || x < 0 || y > height || y <= 0){
     gameOver = true;
   }
   if (x == fruitX && y == fruitY){
-    score++;
+    nTail++;
+    score += 10;
     fruitX = rand() % width;
     fruitY = rand() % height;
   }
