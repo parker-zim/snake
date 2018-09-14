@@ -9,7 +9,7 @@ bool gameOver;
 const int width = 20;
 const int height = 20;
 int x, y, fruitX, fruitY, score, nTail;
-int tailX[100], tailY[100]
+int tailX[100], tailY[100];
 enum eDirection { STOP = 0, LEFT, RIGHT, UP, DOWN};
 eDirection dir;
 
@@ -18,20 +18,13 @@ void Setup(){
   dir = STOP;
   x = width/2;
   y = height/2;
-  fruitX = rand() % width;
-  fruitY = rand() % height;
+  fruitX = (rand() % width) + 1;
+  fruitY = (rand() % height) + 1;
 }
 void Draw(){
   system("cls");
 
   for (int i = 0; i <= height + 1; i++){
-    // if (i == 0 || i == height + 1){
-    //   for (int j = 0; j <= width + 1; j++){
-    //
-    //   }
-    //   cout << endl;
-    // }
-    // else {
     for (int j = 0; j <= width + 1; j++){
       if (i == 0 || i == height + 1){
         if (j == 0) {
@@ -57,19 +50,20 @@ void Draw(){
       }
       else{
         bool poTail = false;
-        for (k = 0; k < nTail; k++){
+        for (int k = 0; k < nTail; k++){
           if (tailX[k] == j && tailY[k] == i){
             cout << "::";
-            poTail = True
+            poTail = true;
           }
         }
         if (!poTail){
           cout << "  ";
       }
       }
+    }
       cout << endl;
     }
-  }
+  //}
     cout << endl;
     cout << "Score: " << score;
   }
@@ -101,27 +95,32 @@ void Input() {
 }
 
 void Logic(){
+  if ( x >= width + 1 || x <= 0 || y >= height + 1 || y <= 0){
+    gameOver = true;
+  }
+  for (int i = 0; i < nTail; i++) {
+    if (x == tailX[i] && y == tailY[i]){
+      gameOver = true;
+    }
+  }
+  if (x == fruitX && y == fruitY){
+    nTail++;
+    score += 10;
+    fruitX = (rand() % width) + 1;
+    fruitY = (rand() % height) + 1;
+  }
   int prevX = tailX[0];
   int prevY = tailY[0];
   tailX[0] = x;
-  tailY[0] = Y;
-  int prev2X, prev2Y
+  tailY[0] = y;
+  int prev2X, prev2Y;
   for (int i = 1; i < nTail; i++) {
     prev2X = tailX[i];
     prev2Y = tailY[i];
     tailX[i] = prevX;
     tailY[i] = prevY;
-    prevX = prev2X
-    prevY = prev2Y
-  }
-  if ( x >= width || x < 0 || y > height || y <= 0){
-    gameOver = true;
-  }
-  if (x == fruitX && y == fruitY){
-    nTail++;
-    score += 10;
-    fruitX = rand() % width;
-    fruitY = rand() % height;
+    prevX = prev2X;
+    prevY = prev2Y;
   }
   switch(dir){
     case LEFT:
@@ -150,7 +149,7 @@ int main() {
     Draw();
     Input();
     Logic();
-    Sleep(10);
+    Sleep(75);
   }
 
   return 0;
